@@ -1,0 +1,128 @@
+body {
+    background-color: pink;
+    font-family: "Arial", sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+#title {
+    font-family: 'Courier New', Courier, monospace;
+
+}
+
+
+.container {
+    position: relative;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.envelope {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    background-color: pink;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.5s ease;
+    z-index: 3;
+}
+
+.body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 200px;
+    background-color: #ff6666;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    clip-path: polygon(0% 0%, 50% 50%, 100% 0%, 100% 100%, 0% 100%);
+    transition: transform 0.5s ease;
+    z-index: 4;
+}
+
+.envelope:hover {
+    transform: scale(1.05);
+}
+
+.flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background-color: #ff4d4d;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transition: transform 0.4s ease-out;
+    transform-origin: top;
+    z-index: 1;
+}
+
+.letter {
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    width: 70%;
+    height: 160px;
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+    transform: translateX(-50%) scale(0.9);
+    transition: top 0.5s ease-out, opacity 0.3s ease-in, transform 0.7s ease-out;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+}
+
+.letter textarea {
+    width: 100%;
+    height: 100%;
+    resize: none;
+    border: none;
+    font-size: 16px;
+    color: #333;
+    background-color: #fff;
+    box-shadow: none;
+    outline: none;
+    padding: 10px;
+}
+
+.open .letter {
+    top: -70%;
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+}
+
+/* 關閉信封時，信件回到信封內 */
+
+/* 信封關閉時，讓信件慢慢回到信封內 */
+.envelope:not(.open) .letter {
+    top: 0px;
+    opacity: 0;
+    transform: translateX(-50%) scale(0.9);
+    z-index: 1;
+    transition: top 0.6s ease-out, opacity 0.8s ease-in 0.3s, transform 0.6s ease-out;
+}
+
+.open .flap {
+    transform: rotateX(180deg);
+}
+
+/* 信封關閉時，flap旋轉回原位 */
+.envelope:not(.open) .flap {
+    transform: rotateX(0deg);
+    /* 回到原位 */
+    transition: transform 0.6s ease-out 0.6s;
+
+}
